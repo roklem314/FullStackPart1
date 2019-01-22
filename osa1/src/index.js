@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const Header = (course) => {
-    
+    console.log(course)
 
     return (
         <div>
@@ -33,12 +33,16 @@ const Part = (osa) => {
         </div>
     )
 }
-const Total = (totali) => {
-    
+const Total = (summa) => {
+    const a = (summa.a) 
+    const b = (summa.b)
+    const c = (summa.c)  
+ console.log(c)
+ 
     return (
         <div>
             <p>
-                yhteensä {totali.summa} tehtävää
+                yhteensä {a + b +c} tehtävää
             </p>
         </div>
     )
@@ -46,18 +50,24 @@ const Total = (totali) => {
 
 const App = () => {
     const course = 'Half Stack -sovelluskehitys'
-    // const part1 = 'Reactin perusteet'
-    const exercises1 = 10
-    // const part2 = 'Tiedonvälitys propseilla'
-    const exercises2 = 7
-    // const part3 = 'Komponenttien tila'
-    const exercises3 = 14
+    const part1 = {
+      name: 'Reactin perusteet',
+      exercises: 10
+    }
+    const part2 = {
+      name: 'Tiedonvälitys propseilla',
+      exercises: 7
+    }
+    const part3 = {
+      name: 'Komponenttien tila',
+      exercises: 14
+    }
 
     return (
         <div>
             <Header name={course}/>
             <Content />
-            <Total summa={exercises1 + exercises2 + exercises3}/>
+            <Total a = {part1.exercises} b = {part2.exercises} c = {part3.exercises}/>
         </div>
     )
 }
