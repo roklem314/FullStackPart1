@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const Header = (course) => {
-    console.log(course)
+    const n = Object.values(course)[0].name
+    console.log(n)
 
     return (
         <div>
@@ -33,41 +34,45 @@ const Part = (osa) => {
         </div>
     )
 }
-const Total = (summa) => {
-    const a = (summa.a) 
-    const b = (summa.b)
-    const c = (summa.c)  
- console.log(c)
- 
+const Total = (course) => {
+    const a = Object.values(course)[0].parts[0].exercises
+    const b = Object.values(course)[0].parts[0].exercises
+    const c = Object.values(course)[0].parts[0].exercises
+   
+    
+    // console.log(Object.values(course)[0].parts[0].exercises);
     return (
         <div>
             <p>
-                yhteensä {a + b +c} tehtävää
+                yhteensä {a + b + c}tehtävää
             </p>
         </div>
     )
 }
 
 const App = () => {
-    const course = 'Half Stack -sovelluskehitys'
-    const part1 = {
-      name: 'Reactin perusteet',
-      exercises: 10
-    }
-    const part2 = {
-      name: 'Tiedonvälitys propseilla',
-      exercises: 7
-    }
-    const part3 = {
-      name: 'Komponenttien tila',
-      exercises: 14
-    }
-
+    const course = {
+        name: 'Half Stack -sovelluskehitys',
+        parts: [
+          {
+            name: 'Reactin perusteet',
+            exercises: 10
+          },
+          {
+            name: 'Tiedonvälitys propseilla',
+            exercises: 7
+          },
+          {
+            name: 'Komponenttien tila',
+            exercises: 14
+          }
+        ]
+      }
     return (
         <div>
             <Header name={course}/>
             <Content />
-            <Total a = {part1.exercises} b = {part2.exercises} c = {part3.exercises}/>
+            <Total a = {course}/>
         </div>
     )
 }
