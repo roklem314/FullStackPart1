@@ -8,19 +8,25 @@ const Header = (course) => {
     return (
         <div>
             <p>
-            {course.name}
+            {n}
             </p>
         </div>
         
     )
 }
-const Content = (palikka) => {
-    
+const Content = (course) => {
+    const a = Object.values(course)[0].parts[0].name
+    const a2 = Object.values(course)[0].parts[0].exercises
+    const b = Object.values(course)[0].parts[1].name
+    const b2 = Object.values(course)[0].parts[1].exercises
+    const c = Object.values(course)[0].parts[2].name
+    const c2 = Object.values(course)[0].parts[2].exercises
+
     return (
         <div>
-            <Part a = {'Reactin perusteet'} b = {10} />
-            <Part a = {'Tiedonvälitys propseilla'} b = {7} />
-            <Part a = {'Komponenttien tila'} b = {14} />
+            <p>{a}, {a2}</p>
+            <p>{b}, {b2}</p>
+            <p>{c}, {c2}</p>
         </div>
     )
 }
@@ -44,7 +50,7 @@ const Total = (course) => {
     return (
         <div>
             <p>
-                yhteensä {a + b + c}tehtävää
+                yhteensä {a + b + c} tehtävää
             </p>
         </div>
     )
@@ -70,8 +76,8 @@ const App = () => {
       }
     return (
         <div>
-            <Header name={course}/>
-            <Content />
+            <Header courseName={course}/>
+            <Content names={course}/>
             <Total a = {course}/>
         </div>
     )
