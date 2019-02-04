@@ -1,87 +1,113 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-const Header = (course) => {
-    const n = Object.values(course)[0].name
-    console.log(n)
-
-    return (
-        <div>
-            <p>
-            {n}
-            </p>
-        </div>
-        
-    )
-}
-const Content = (course) => {
-    const a = Object.values(course)[0].parts[0].name
-    const a2 = Object.values(course)[0].parts[0].exercises
-    const b = Object.values(course)[0].parts[1].name
-    const b2 = Object.values(course)[0].parts[1].exercises
-    const c = Object.values(course)[0].parts[2].name
-    const c2 = Object.values(course)[0].parts[2].exercises
+const Header = (headeri) => {
+    console.log({headeri})
 
     return (
-        <div>
-            <p>{a}, {a2}</p>
-            <p>{b}, {b2}</p>
-            <p>{c}, {c2}</p>
-        </div>
+        <h1>
+            {headeri.header}
+        </h1>
     )
+
 }
-const Part = (osa) => {
-    
-    return (
-        <div>
-            <p>
-                {osa.a}, {osa.b}
-            </p>
-        </div>
-    )
-}
-const Total = (course) => {
-    const a = Object.values(course)[0].parts[0].exercises
-    const b = Object.values(course)[0].parts[0].exercises
-    const c = Object.values(course)[0].parts[0].exercises
    
-    
-    // console.log(Object.values(course)[0].parts[0].exercises);
-    return (
+const Total = ({countti}) => {
+    console.log(countti)
+  const total = countti[0].exercises + countti[1].exercises + countti[2].exercises
+  
+      return (
         <div>
-            <p>
-                yhteensä {a + b + c} tehtävää
-            </p>
+         
+           <p>yhteensä {total}  tehtäviä</p> 
+           
         </div>
+      
     )
 }
+  
 
-const App = () => {
-    const course = {
+const Part = props =>
+  <p>{props.part.name} {props.part.exercises}</p>
+
+const Content = props => (
+  <div>
+    <Part part={props.parts[0]} />
+    <Part part={props.parts[1]} />
+    <Part part={props.parts[2]} />
+  </div>
+)
+const Course = ({ course }) => {
+    const courses = course.parts
+    console.log(courses)
+    const rows = () =>
+        courses.map(courses => <li key={courses.id}>{courses.name}</li>)
+      
+    return (
+        <div>
+           < Header header = {course.name} />
+            
+            <ul>
+                {rows()}
+            </ul>
+
+            < Total countti = {course.parts} />
+
+        </div>
+      
+    )
+  }
+
+
+  const App = () => {
+    const courses = [
+      {
         name: 'Half Stack -sovelluskehitys',
+        id: 1,
         parts: [
           {
             name: 'Reactin perusteet',
-            exercises: 10
+            exercises: 10,
+            id: 1
           },
           {
             name: 'Tiedonvälitys propseilla',
-            exercises: 7
+            exercises: 7,
+            id: 2
           },
           {
             name: 'Komponenttien tila',
-            exercises: 14
+            exercises: 14,
+            id: 3
+          }
+        ]
+      },
+      {
+        name: 'Node.js',
+        id: 2,
+        parts: [
+          {
+            name: 'Routing',
+            exercises: 2,
+            id: 1
+          },
+          {
+            name: 'Middlewaret',
+            exercises: 7,
+            id: 2
           }
         ]
       }
-    return (
-        <div>
-            <Header courseName={course}/>
-            <Content names={course}/>
-            <Total a = {course}/>
-        </div>
-    )
-}
+    ]
+      
+        return (
+          <div>
+            <Course course={course} />
+          </div>
+        )
+      }
 
-ReactDOM.render(<App />, document.getElementById('root')); //renderöi komponentin sisällön tiedoston public/index.html määrittelemään div-elementtiin, jonka id:n arvona on 'root'.
-
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+)
